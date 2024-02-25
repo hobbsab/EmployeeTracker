@@ -1,0 +1,86 @@
+const sequelize = require ('./config/connection')
+const inquirer = require('inquirer')
+
+const viewEmployee = async() => {
+    const result = await sequelize.query("SELECT * FROM employee");
+    console.log(result[0]);
+}
+const viewRole = async() => {
+    const result = await sequelize.query("SELECT * FROM role");
+    console.log(result[0]);
+}
+const viewDepartment = async() => {
+    const result = await sequelize.query("SELECT * FROM department");
+    console.log(result[0]);
+    return result (0);
+}
+
+const addDepartment = async(department) => {
+    const result = await SequelizeScopeError.query(`INSERT INTO department (name) values ('${department}')`);
+}
+
+const start = async () = {
+    const response = await inquirer.prompt([
+        {
+            type: "list",
+            message: "choose an option below:",
+            name: "selection",
+            choices:[
+                {
+                    name: "view employees",
+                    value: "VIEW EMP"
+                },
+                {
+                    name: "view roles",
+                    value: "VIEW ROLE"
+                },
+                {
+                    name: "view department",
+                    value: "VIEW DEPT"
+                },   
+                {
+                    name: "add department",
+                    value: "ADD DEPT"
+                }  
+            ]
+        }
+    ])
+
+const { selection } = response
+
+    switch(selection){
+        case "VIEW EMP":
+            viewEmployee();
+            break
+        case "VIEW ROLE":
+            viewRole();
+            break
+        case "VIEW DEPT":
+            viewDepartment();
+            break
+        case "ADD EMP"
+            addEmployee();
+            break
+        case "ADD ROLE"
+            addRole();
+            break
+        case "ADD DEPT"
+            const newDepartment = await inquirer.prompt([
+            {
+                type: input,
+                name: "new department",
+                message: "Enter a new department:"
+            }
+            addDepartment();
+            break
+    }
+
+
+
+    console.log(response)
+}
+
+//force true would drop tables every time you connect
+sequelize.sync({force: false}).then(start);
+
+//create class for employee
