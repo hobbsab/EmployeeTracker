@@ -1,15 +1,15 @@
-const Sequelize = require('sequelize');
+const {Pool} = require('pg');
 require('dotenv').config();
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,
-  process.env.DB_USERNAME,
-  process.env.DB_PASS,
-  {
+// postgres login info and port
+const pool = new Pool({
+    user:'postgres',
     host: 'localhost',
-    dialect: 'postgres',
+    password:'fishie65',
+    database:'employees',
     port: 5432
-  }
-);
+});
+  
+pool.connect();
 
-module.exports = sequelize;
+module.exports = pool;

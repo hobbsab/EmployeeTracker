@@ -1,25 +1,25 @@
-const sequelize = require ('./config/connection')
+const pool = require ('./config/connection')
 const inquirer = require('inquirer')
 
 const viewEmployee = async() => {
-    const result = await sequelize.query("SELECT * FROM employee");
+    const result = await pool.query("SELECT * FROM employee");
     console.log(result[0]);
 }
 const viewRole = async() => {
-    const result = await sequelize.query("SELECT * FROM role");
+    const result = await pool.query("SELECT * FROM role");
     console.log(result[0]);
 }
 const viewDepartment = async() => {
-    const result = await sequelize.query("SELECT * FROM department");
+    const result = await pool.query("SELECT * FROM department");
     console.log(result[0]);
-    return result (0);
+    return result [0];
 }
 
 const addDepartment = async(department) => {
-    const result = await SequelizeScopeError.query(`INSERT INTO department (name) values ('${department}')`);
+    const result = await pool.query(`INSERT INTO department (name) values ('${department}')`);
 }
 
-const start = async () = {
+const start = async () => {
     const response = await inquirer.prompt([
         {
             type: "list",
@@ -41,7 +41,19 @@ const start = async () = {
                 {
                     name: "add department",
                     value: "ADD DEPT"
-                }  
+                },  
+                {
+                    name: "add employees",
+                    value: "ADD EMP"
+                },   
+                {
+                    name: "add roles",
+                    value: "ADD ROLE"
+                },
+                {
+                    name: "update employees",
+                    value: "UPDATE EMP"
+                },
             ]
         }
     ])
@@ -58,29 +70,25 @@ const { selection } = response
         case "VIEW DEPT":
             viewDepartment();
             break
-        case "ADD EMP"
-            addEmployee();
-            break
-        case "ADD ROLE"
-            addRole();
-            break
-        case "ADD DEPT"
-            const newDepartment = await inquirer.prompt([
-            {
-                type: input,
-                name: "new department",
-                message: "Enter a new department:"
-            }
+        case "ADD DEPT":
             addDepartment();
             break
-    }
-
-
-
+        case "ADD EMP":
+            addEmployee();
+            break
+        case "ADD ROLE":
+            addRole();
+            break
+        case "UPDATE EMP":
+            updateEmployee();
+            break
+        case "QUIT":
+            quit();
+            break
+}
     console.log(response)
 }
 
-//force true would drop tables every time you connect
-sequelize.sync({force: false}).then(start);
+start();
 
 //create class for employee
