@@ -19,6 +19,7 @@ const addDepartment = async(department) => {
     const result = await pool.query(`INSERT INTO department (name) values ('${department}')`);
 }
 
+// categories to select
 const start = async () => {
     const response = await inquirer.prompt([
         {
