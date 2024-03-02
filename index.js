@@ -2,22 +2,66 @@ const pool = require ('./config/connection')
 const inquirer = require('inquirer')
 
 const viewEmployee = async() => {
-    const result = await pool.query("SELECT * FROM employee");
-    console.log(result[0]);
+    try {
+        const result = await pool.query("SELECT first_name FROM employee");
+        console.log(result)
+       } catch (err) {
+         console.error('Error executing query', err);
+         res.status(500).send('Internal Server Error');
+       }
 }
 const viewRole = async() => {
-    const result = await pool.query("SELECT * FROM role");
-    console.log(result[0]);
+    try {
+        const result = await pool.query("SELECT title FROM role");
+        console.log(result)
+       } catch (err) {
+         console.error('Error executing query', err);
+         res.status(500).send('Internal Server Error');
+       }
 }
 const viewDepartment = async() => {
-    const result = await pool.query("SELECT * FROM department");
-    console.log(result[0]);
-    return result [0];
+    try {
+        const result = await pool.query("SELECT name FROM department");
+        console.log(result)
+       } catch (err) {
+         console.error('Error executing query', err);
+         res.status(500).send('Internal Server Error');
+       }
 }
 
 const addDepartment = async(department) => {
-    const result = await pool.query(`INSERT INTO department (name) values ('${department}')`);
+    try {
+        const result = await pool.query(`INSERT INTO department (name) values ('${department}')`);
+        console.log(result)
+       } catch (err) {
+         console.error('Error executing query', err);
+         res.status(500).send('Internal Server Error');
+       }
 }
+
+const addEmployee = async(department) => {
+    try {
+        const result = await pool.query(`INSERT INTO employee (first_name) values ('${employee}')`);
+        console.log(result)
+       } catch (err) {
+         console.error('Error executing query', err);
+         res.status(500).send('Internal Server Error');
+       }
+}
+
+const addRole = async(department) => {
+    try {
+        const result = await pool.query(`INSERT INTO role (title) values ('${role}')`);
+        console.log(result)
+       } catch (err) {
+         console.error('Error executing query', err);
+         res.status(500).send('Internal Server Error');
+       }
+}
+
+
+//     const result = await pool.query(`INSERT INTO department (name) values ('${department}')`);
+// }
 
 // categories to select
 const start = async () => {
